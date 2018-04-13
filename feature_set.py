@@ -30,7 +30,7 @@ stop_words = stopwords.words('english')
 import os
 os.chdir('C:/Users/Rasika Telang/.spyder-py3/datasets/Quora')
 
-def wmd(s1, s2):
+def wordmoverdistance(s1, s2):
     s1 = str(s1).lower().split()
     s2 = str(s2).lower().split()
     stop_words = stopwords.words('english')
@@ -39,7 +39,7 @@ def wmd(s1, s2):
     return model.wmdistance(s1, s2)
 
 
-def norm_wmd(s1, s2):
+def norm_wordmoverdistance(s1, s2):
     s1 = str(s1).lower().split()
     s2 = str(s2).lower().split()
     stop_words = stopwords.words('english')
@@ -90,12 +90,12 @@ data['fuzz_token_sort_ratio'] = data.apply(lambda x: fuzz.token_sort_ratio(str(x
 print("done3")
 gc.collect()
 model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin.gz', binary=True)
-data['wmd'] = data.apply(lambda x: wmd(x['question1'], x['question2']), axis=1)
+data['wmd'] = data.apply(lambda x: wordmoverdistance(x['question1'], x['question2']), axis=1)
 print("done4")
 gc.collect()
 #norm_model = gensim.models.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin.gz', binary=True)
 model.init_sims(replace=True)
-data['norm_wmd'] = data.apply(lambda x: norm_wmd(x['question1'], x['question2']), axis=1)
+data['norm_wmd'] = data.apply(lambda x: norm_wordmoverdistance(x['question1'], x['question2']), axis=1)
 print("done5")
 '''
 
